@@ -6,6 +6,7 @@ import { State, process } from '@progress/kendo-data-query';
 import { ClientService } from 'src/app/core/data-services/client.service';
 import { AddressService } from 'src/app/core/data-services/address.service';
 import { ClientFullInfo } from '../../core/models/ClientFullInfo'
+import { AuthenticationService } from 'src/app/core/data-services/authentication.service';
 
 @Component({
   selector: 'app-clients',
@@ -46,7 +47,8 @@ export class ClientsComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private clientService: ClientService,
-              private addressService: AddressService) { }
+              private addressService: AddressService,
+              private authenticationService: AuthenticationService) { }
 
   ngOnInit(): void {
     this.route.data.subscribe(res =>{
@@ -160,6 +162,10 @@ export class ClientsComponent implements OnInit {
     this.addressService.aggregateByField(this.aggregationFieldsForm.controls.field.value).subscribe(res =>{
       this.dataAggregations = res.data;
     })
+  }
+
+  logout() {
+    this.authenticationService.logout();
   }
 
 }

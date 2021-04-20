@@ -12,6 +12,8 @@ import { LabelModule } from '@progress/kendo-angular-label';
 import { InputsModule } from '@progress/kendo-angular-inputs';
 import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
 import { IndicatorsModule } from '@progress/kendo-angular-indicators';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { JwtInterceptor } from './core/services/jwt.interceptor';
 
 
 @NgModule({
@@ -32,7 +34,9 @@ import { IndicatorsModule } from '@progress/kendo-angular-indicators';
     IndicatorsModule
   ],
   providers: [
-    ClientResolverService],
+    ClientResolverService,
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

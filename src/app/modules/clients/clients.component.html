@@ -12,6 +12,7 @@
     <ng-template kendoGridToolbarTemplate [position]="'top'">
         <button  (click)="onAddClient()" class="k-button k-primary">Add client</button>
         <button  (click)="onShowAggregations()" class="k-button">Aggregations</button>
+        <button class="logout-button" kendoButton [icon]="'logout'" (click)="logout()"></button>
     </ng-template>
     <kendo-grid-column field="firstName" title="First name">
     </kendo-grid-column>
