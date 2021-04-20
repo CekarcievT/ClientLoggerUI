@@ -118,6 +118,9 @@ export class ClientsComponent implements OnInit {
         this.editedClient.postName = this.clientForm.controls.postName.value;
         this.editedClient.street = this.clientForm.controls.street.value;
         this.editedClient.country = this.clientForm.controls.country.value;
+        this.editedClient.postNameFull = this.clientForm.controls.postNumber.value + ' ' 
+            + this.clientForm.controls.postName.value;
+        
         this.clientService.updateClient(this.editedClient).subscribe(res => {
           if(res.errors.length > 0){
 
@@ -138,6 +141,8 @@ export class ClientsComponent implements OnInit {
         newClient.postName = this.clientForm.controls.postName.value;
         newClient.street = this.clientForm.controls.street.value;
         newClient.country = this.clientForm.controls.country.value;
+        newClient.postNameFull = this.clientForm.controls.postNumber.value + ' ' 
+            + this.clientForm.controls.postName.value;
         this.clientService.createClient(newClient).subscribe(res => {
           if(res.errors.length > 0){
 
