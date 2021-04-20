@@ -17,6 +17,7 @@ export class ClientsComponent implements OnInit {
   type = 'converging-spinner';
   themeColor = 'info';
   size ='large';
+
   loading = false;
   loadingMainGrid = false;
 
@@ -43,7 +44,7 @@ export class ClientsComponent implements OnInit {
     birthDate: new FormControl(new Date(),Validators.required),
     street: new FormControl('', Validators.required),
     postName: new FormControl('', Validators.required),
-    postNumber: new FormControl('', Validators.maxLength(5)),
+    postNumber: new FormControl('', [Validators.maxLength(5),Validators.pattern('^[0-9]*$'), Validators.required]),
     country: new FormControl('', Validators.required)
   });
 

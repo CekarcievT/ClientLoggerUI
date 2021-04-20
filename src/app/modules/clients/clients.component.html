@@ -110,6 +110,10 @@
                         <kendo-formerror *ngIf="clientForm.controls.postNumber.errors?.maxlength">
                             Error: Post number has to be at maximum 5 characters
                         </kendo-formerror>
+                        <kendo-formerror *ngIf="clientForm.controls.postNumber.errors?.pattern">
+                            Error: Must be numbers
+                        </kendo-formerror>
+
                     </kendo-formfield>
 
                     <kendo-formfield [showErrors]="'always'">

@@ -1,10 +1,12 @@
 .edit-form{
     display: flex;
     flex-flow: row;
+    width: 100%;
 }
 
 .form-row{
     width: 50%;
+    min-width: 200px;
     margin: 5px;
 }
 
