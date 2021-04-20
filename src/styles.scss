@@ -1,1 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import "./styles/variables.scss";
+@import "~@progress/kendo-theme-bootstrap/dist/all.scss";
+
+.i-grid-buttons {
+    text-align: center !important;
+    padding: 0px !important;
+  }
+  
+  .i-grid-buttons button {
+    margin: 0px 2px 0px 2px;
+    width: auto;
+    height: auto;
+  }

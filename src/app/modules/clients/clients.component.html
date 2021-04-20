@@ -1,0 +1,133 @@
+<kendo-grid
+        [data]="gridView"
+        [pageSize]="gridState.take"
+        [skip]="gridState.skip"
+        [sort]="gridState.sort"
+        [filter]="gridState.filter"
+        [sortable]="true"
+        [pageable]="true"
+        [filterable]="true"
+        (dataStateChange)="dataStateChange($event)"
+    >
+    <ng-template kendoGridToolbarTemplate [position]="'top'">
+        <button  (click)="onAddClient()" class="k-button k-primary">Add client</button>
+    </ng-template>
+    <kendo-grid-column field="firstName" title="First name">
+    </kendo-grid-column>
+    <kendo-grid-column field="lastName" title="Last name">
+    </kendo-grid-column>
+    <kendo-grid-column field="email" title="Email" [width]="300">
+    </kendo-grid-column>
+    <kendo-grid-column field="birthDate" title="Birth date" >
+        <ng-template kendoGridCellTemplate let-dataItem>
+            {{dataItem.birthDate | date: 'dd.MM.yyyy'}}
+        </ng-template>
+    </kendo-grid-column>
+    <kendo-grid-column field="street" title="Street" >
+    </kendo-grid-column>
+    <kendo-grid-column field="postNameFull" title="Post office" >
+    </kendo-grid-column>
+    <kendo-grid-column field="country" title="Country" >
+    </kendo-grid-column>
+    <kendo-grid-column [filterable]="false" [sortable]="false" title="Actions"
+            width="120px" [headerStyle]="{'text-align': 'center'}" [class]="{'i-grid-buttons':true}">
+        <ng-template kendoGridCellTemplate let-dataItem>
+            <button class="k-button k-primary" kendoButton (click)="onEditClient(dataItem)" [icon]="'edit'" title="Edit"> </button>
+            <button class="k-button k-primary" kendoButton (click)="onDeleteClient(dataItem)" [icon]="'delete'" title="Delete"></button>
+        </ng-template>
+    </kendo-grid-column>
+</kendo-grid>
+<kendo-dialog title="Add/Edit" *ngIf="addEditDialogOpened" (close)="onCloseAddEditDialog()"
+    [minWidth]="250" [width]="700">
+    <div>
+        <form class="k-form" [formGroup]="clientForm">
+            <fieldset class="k-form-fieldset edit-form">
+                <legend class="k-form-legend">Client deatails</legend>
+                <div class="form-row">
+                    <kendo-formfield [showErrors]="'always'">
+                        <kendo-label [for]="firstName" text="First name"></kendo-label>
+                        <input formControlName="firstName" kendoTextBox #firstName required/>
+
+                        <kendo-formerror *ngIf="(clientForm.controls.firstName.touched || clientForm.controls.firstName.dirty) && clientForm.controls.firstName.errors?.required">
+                            Error: First name is required
+                        </kendo-formerror>
+                    </kendo-formfield>
+
+                    <kendo-formfield [showErrors]="'always'">
+                        <kendo-label [for]="lastName" text="Last name"></kendo-label>
+                        <input formControlName="lastName" kendoTextBox #lastName required/>
+
+                        <kendo-formerror *ngIf="(clientForm.controls.lastName.touched || clientForm.controls.lastName.dirty) && clientForm.controls.lastName.errors?.required">
+                            Error: Last name is required
+                        </kendo-formerror>
+                    </kendo-formfield>
+
+                    <kendo-formfield [showErrors]="'always'">
+                        <kendo-label [for]="email" text="Email"></kendo-label>
+                        <input formControlName="email" kendoTextBox #email required/>
+
+                        <kendo-formerror *ngIf="(clientForm.controls.email.touched || clientForm.controls.email.dirty) && clientForm.controls.email.errors?.required">
+                            Error: Email is required
+                        </kendo-formerror>
+                        <kendo-formerror *ngIf="clientForm.controls.email.errors?.email">Error: Not valid email format</kendo-formerror>
+                    </kendo-formfield>
+
+                    <kendo-formfield>
+                        <kendo-label [for]="birthDate" text="Birth Date"></kendo-label>
+                        <kendo-datepicker #birthDate formControlName="birthDate" [format]="'dd.MM.yyyy'">
+                        </kendo-datepicker>
+
+                        <kendo-formerror *ngIf="(clientForm.controls.birthDate.touched || clientForm.controls.birthDate.dirty) && clientForm.controls.birthDate.errors?.required">
+                            Error: Birth date is required
+                        </kendo-formerror>
+                    </kendo-formfield>
+                </div>
+                <div class="form-row">
+                    <kendo-formfield [showErrors]="'always'">
+                        <kendo-label [for]="street" text="Street"></kendo-label>
+                        <input formControlName="street" kendoTextBox #street required/>
+
+                        <kendo-formerror *ngIf="(clientForm.controls.street.touched || clientForm.controls.street.dirty) && clientForm.controls.street.errors?.required">
+                            Error: Street name is required
+                        </kendo-formerror>
+                    </kendo-formfield>
+
+                    <kendo-formfield [showErrors]="'always'">
+                        <kendo-label [for]="postNumber" text="Post number"></kendo-label>
+                        <input formControlName="postNumber" kendoTextBox #postNumber required/>
+
+                        <kendo-formerror *ngIf="(clientForm.controls.postNumber.touched || clientForm.controls.postNumber.dirty) && clientForm.controls.postNumber.errors?.required">
+                            Error: Post number is required
+                        </kendo-formerror>
+                        <kendo-formerror *ngIf="clientForm.controls.postNumber.errors?.maxlength">
+                            Error: Post number has to be at maximum 5 characters
+                        </kendo-formerror>
+                    </kendo-formfield>
+
+                    <kendo-formfield [showErrors]="'always'">
+                        <kendo-label [for]="postName" text="Post name"></kendo-label>
+                        <input formControlName="postName" kendoTextBox #postName required/>
+
+                        <kendo-formerror *ngIf="(clientForm.controls.postName.touched || clientForm.controls.postName.dirty) && clientForm.controls.postName.errors?.required">
+                            Error: Post name is required
+                        </kendo-formerror>
+                    </kendo-formfield>
+
+                    <kendo-formfield [showErrors]="'always'">
+                        <kendo-label [for]="country" text="Country"></kendo-label>
+                        <input formControlName="country" kendoTextBox #country required/>
+
+                        <kendo-formhint></kendo-formhint>
+                        <kendo-formerror *ngIf="(clientForm.controls.country.touched || clientForm.controls.country.dirty) && clientForm.controls.country.errors?.required">
+                            Error: Country name is required
+                        </kendo-formerror>
+                    </kendo-formfield>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    <kendo-dialog-actions>
+        <button kendoButton (click)="onCloseAddEditDialog()">Cancel</button>
+        <button kendoButton (click)="onSave()" primary="true">Save</button>
+    </kendo-dialog-actions>
+</kendo-dialog>
