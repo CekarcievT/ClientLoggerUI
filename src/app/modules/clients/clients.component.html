@@ -39,6 +39,12 @@
         </ng-template>
     </kendo-grid-column>
 </kendo-grid>
+<kendo-loader *ngIf="loadingMainGrid" class="center-spinner"
+        [type]="type"
+        [themeColor]="themeColor"
+        [size]="size"
+        >
+    </kendo-loader>
 <kendo-dialog title="Add/Edit" *ngIf="addEditDialogOpened" (close)="onCloseAddEditDialog()"
     [minWidth]="250" [width]="700">
     <div>
@@ -144,5 +150,11 @@
         <kendo-label class="k-radio-label" [for]="street" text="Street"></kendo-label>
         <input type="radio" name="field" formControlName="field" value="Street" #street kendoRadioButton (change)="changeValue()" />
     </div>
+    <kendo-loader *ngIf="loading" class="center-spinner"
+        [type]="type"
+        [themeColor]="themeColor"
+        [size]="size"
+        >
+    </kendo-loader>
     <app-aggregation-view [aggregationData]="dataAggregations"></app-aggregation-view>
 </kendo-dialog>

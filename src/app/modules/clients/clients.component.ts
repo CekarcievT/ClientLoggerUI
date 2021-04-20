@@ -14,6 +14,12 @@ import { AuthenticationService } from 'src/app/core/data-services/authentication
   styleUrls: ['./clients.component.scss']
 })
 export class ClientsComponent implements OnInit {
+  type = 'converging-spinner';
+  themeColor = 'info';
+  size ='large';
+  loading = false;
+  loadingMainGrid = false;
+
   public gridState: State = {
     sort: [],
     skip: 0,
@@ -51,9 +57,11 @@ export class ClientsComponent implements OnInit {
               private authenticationService: AuthenticationService) { }
 
   ngOnInit(): void {
-    this.route.data.subscribe(res =>{
-      this.gridItems = res.routeResolver.data;
+    this.loadingMainGrid = true;
+    this.clientService.getAllClients().subscribe(res =>{
+      this.gridItems = res.data;
       this.loadItems();
+      this.loadingMainGrid = false;
     });
   }
   
@@ -149,8 +157,10 @@ export class ClientsComponent implements OnInit {
 
   public onShowAggregations() {
     this.aggregationsDialogOpened = true;
+    this.loading = true;
     this.addressService.aggregateByField(this.aggregationFieldsForm.controls.field.value).subscribe(res =>{
       this.dataAggregations = res.data;
+      this.loading = false;
     })
   }
 
@@ -159,8 +169,10 @@ export class ClientsComponent implements OnInit {
   }
 
   changeValue() {
+    this.loading = true;
     this.addressService.aggregateByField(this.aggregationFieldsForm.controls.field.value).subscribe(res =>{
       this.dataAggregations = res.data;
+      this.loading = false;
     })
   }
 
