@@ -9,7 +9,7 @@ const routes: Routes = [
     loadChildren: () => import('./modules/clients/clients.module').then(m => m.ClientsModule) 
   },
   { 
-    path: 'login',
+    path: '',
     loadChildren: () => import('./modules/login/login.module').then(m => m.LoginModule) 
   }
 ];
