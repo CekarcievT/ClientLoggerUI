@@ -10,10 +10,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LabelModule } from '@progress/kendo-angular-label';
 import { InputsModule } from '@progress/kendo-angular-inputs';
 import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
+import { AggregationViewComponent } from './aggregation-view/aggregation-view.component';
+import { IndicatorsModule } from '@progress/kendo-angular-indicators';
 
 
 @NgModule({
-  declarations: [ClientsComponent],
+  declarations: [ClientsComponent, AggregationViewComponent],
   imports: [
     CommonModule,
     ClientsRoutingModule,
@@ -24,7 +26,8 @@ import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
     ReactiveFormsModule,
     InputsModule,
     LabelModule,
-    DateInputsModule
+    DateInputsModule,
+    IndicatorsModule
   ],
   providers: [],
 })

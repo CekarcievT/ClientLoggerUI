@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { DataStateChangeEvent, GridDataResult } from '@progress/kendo-angular-grid';
 import { State, process } from '@progress/kendo-data-query';
 import { ClientService } from 'src/app/core/data-services/client.service';
+import { AddressService } from 'src/app/core/data-services/address.service';
 import { ClientFullInfo } from '../../core/models/ClientFullInfo'
 
 @Component({
@@ -24,6 +25,9 @@ export class ClientsComponent implements OnInit {
   public editedClient: ClientFullInfo;
 
   public addEditDialogOpened = false;
+  public aggregationsDialogOpened = false;
+
+  public dataAggregations:any;
 
   public clientForm: FormGroup = new FormGroup({
     firstName: new FormControl('', Validators.required),
@@ -34,10 +38,15 @@ export class ClientsComponent implements OnInit {
     postName: new FormControl('', Validators.required),
     postNumber: new FormControl('', Validators.maxLength(5)),
     country: new FormControl('', Validators.required)
-});
+  });
+
+  public aggregationFieldsForm: FormGroup = new FormGroup({
+    field: new FormControl('Country')
+  })
 
   constructor(private route: ActivatedRoute,
-              private clientService: ClientService) { }
+              private clientService: ClientService,
+              private addressService: AddressService) { }
 
   ngOnInit(): void {
     this.route.data.subscribe(res =>{
@@ -134,6 +143,23 @@ export class ClientsComponent implements OnInit {
   public dataStateChange(state: DataStateChangeEvent): void {
     this.gridState = state;
     this.loadItems();
-}
+  }
+
+  public onShowAggregations() {
+    this.aggregationsDialogOpened = true;
+    this.addressService.aggregateByField(this.aggregationFieldsForm.controls.field.value).subscribe(res =>{
+      this.dataAggregations = res.data;
+    })
+  }
+
+  public onCloseAggregationsDialog(){
+    this.aggregationsDialogOpened = false;
+  }
+
+  changeValue() {
+    this.addressService.aggregateByField(this.aggregationFieldsForm.controls.field.value).subscribe(res =>{
+      this.dataAggregations = res.data;
+    })
+  }
 
 }

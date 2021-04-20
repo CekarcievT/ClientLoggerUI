@@ -11,16 +11,13 @@ import { DialogsModule } from '@progress/kendo-angular-dialog';
 import { LabelModule } from '@progress/kendo-angular-label';
 import { InputsModule } from '@progress/kendo-angular-inputs';
 import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
-import { MatSpinner } from '@angular/material/progress-spinner';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { IndicatorsModule } from '@progress/kendo-angular-indicators';
 
-import {LoadingInterceptor } from './core/services/loading.interceptor';
 
 @NgModule({
   declarations: [
     AppComponent, 
   ],
-  entryComponents: [MatSpinner],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
@@ -31,7 +28,8 @@ import {LoadingInterceptor } from './core/services/loading.interceptor';
     DialogsModule,
     LabelModule,
     InputsModule,
-    DateInputsModule
+    DateInputsModule,
+    IndicatorsModule
   ],
   providers: [
     ClientResolverService],

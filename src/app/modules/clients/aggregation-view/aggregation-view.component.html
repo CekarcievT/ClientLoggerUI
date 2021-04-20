@@ -1,0 +1,16 @@
+<kendo-grid
+        [data]="gridView"
+        [pageSize]="gridState.take"
+        [skip]="gridState.skip"
+        [sort]="gridState.sort"
+        [filter]="gridState.filter"
+        [sortable]="true"
+        [pageable]="true"
+        [filterable]="true"
+        (dataStateChange)="dataStateChange($event)"
+    >
+    <kendo-grid-column field="name" title="Name">
+    </kendo-grid-column>
+    <kendo-grid-column field="count" title="Count">
+    </kendo-grid-column>
+</kendo-grid>

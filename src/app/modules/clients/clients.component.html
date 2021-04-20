@@ -11,6 +11,7 @@
     >
     <ng-template kendoGridToolbarTemplate [position]="'top'">
         <button  (click)="onAddClient()" class="k-button k-primary">Add client</button>
+        <button  (click)="onShowAggregations()" class="k-button">Aggregations</button>
     </ng-template>
     <kendo-grid-column field="firstName" title="First name">
     </kendo-grid-column>
@@ -130,4 +131,17 @@
         <button kendoButton (click)="onCloseAddEditDialog()">Cancel</button>
         <button kendoButton (click)="onSave()" primary="true">Save</button>
     </kendo-dialog-actions>
+</kendo-dialog>
+
+<kendo-dialog title="Aggregations" *ngIf="aggregationsDialogOpened" (close)="onCloseAggregationsDialog()"
+    [minWidth]="250" [width]="700">
+    <div [formGroup]="aggregationFieldsForm">
+        <kendo-label class="k-radio-label" [for]="country" text="Country"></kendo-label>
+        <input type="radio"  name="field" formControlName="field" value="Country" #country kendoRadioButton (change)="changeValue()"/>
+        <kendo-label class="k-radio-label" [for]="postName" text="Post name"></kendo-label>
+        <input type="radio" name="field"  formControlName="field" value="PostName" #postName kendoRadioButton (change)="changeValue()" />
+        <kendo-label class="k-radio-label" [for]="street" text="Street"></kendo-label>
+        <input type="radio" name="field" formControlName="field" value="Street" #street kendoRadioButton (change)="changeValue()" />
+    </div>
+    <app-aggregation-view [aggregationData]="dataAggregations"></app-aggregation-view>
 </kendo-dialog>
